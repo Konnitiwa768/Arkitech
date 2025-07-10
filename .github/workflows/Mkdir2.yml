@@ -1,0 +1,31 @@
+name: Create Moreweapons Folder and Upload via Token
+
+on:
+  push:
+    branches:
+      - main  # 例えば、mainブランチにpushされたときに実行される
+
+jobs:
+  create-folder:
+    runs-on: ubuntu-latest  # GitHub Actionsのランナー環境としてUbuntuを使用
+
+    steps:
+    # リポジトリをチェックアウト
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Moreweapons フォルダを作成する
+    - name: Create Moreweapons folder
+      run: |
+        mkdir -p Moreweapons  # Moreweaponsフォルダを作成
+        echo "Moreweapons folder created!"  # 作成完了メッセージ
+
+    # トークンを使って特定の操作を行う
+    - name: Use Token for Specific Task
+      run: |
+        curl -X POST \
+          -H "Authorization: token ${{ secrets.TOKEN }}" \
+          -d '{"name": "Moreweapons"}' \
+          https://api.github.com/repos/${{ github.repository }}/issues
+      env:
+        TOKEN: ${{ secrets.TOKEN }}  # シークレットに設定したトークンを使用
