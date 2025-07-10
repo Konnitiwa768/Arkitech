@@ -1,0 +1,63 @@
+name: Generate Gradle Wrapper and Build
+
+on:
+  push:
+    branches:
+      - main  # mainブランチにpushされた時に実行
+
+jobs:
+  generate-wrapper:
+    runs-on: ubuntu-latest
+
+    steps:
+    # リポジトリのコードをチェックアウト
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Gradleをインストール
+    - name: Install Gradle
+      run: |
+        wget https://services.gradle.org/distributions/gradle-7.5.1-bin.zip
+        unzip gradle-7.5.1-bin.zip
+        sudo mv gradle-7.5.1 /opt/gradle
+        sudo ln -s /opt/gradle/bin/gradle /usr/local/bin/gradle
+
+    # Gradle Wrapperを生成
+    - name: Generate Gradle Wrapper
+      run: gradle wrapper
+
+    # gradlewに実行権限を付与
+    - name: Grant execute permission to gradlew
+      run: chmod +x ./gradlew  # 実行権限を付与
+
+  build:
+    runs-on: ubuntu-latest
+    needs: generate-wrapper  # gradlewが生成されてからビルドを実行
+
+    steps:
+    # リポジトリのコードをチェックアウト
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Gradle Wrapperに実行権限を付与
+    - name: Grant execute permission to gradlew
+      run: chmod +x ./gradlew  # 実行権限を付与
+
+    # Java 17 (Temurin) をセットアップ
+    - name: Set up JDK 17
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    # Gradleでビルド
+    - name: Build with Gradle
+      run: ./gradlew build
+
+    # ビルドが成功したらJARファイルをアップロード
+    - name: Upload JAR to GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: build/libs/*.jar
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}  # GitHub SecretsのTOKENを使用
