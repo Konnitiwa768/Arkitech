@@ -1,0 +1,30 @@
+name: Move Files and Upload JAR to GitHub Release!!
+
+on:
+  push:
+    branches:
+      - main  # mainブランチにpushされた時に実行
+
+jobs:
+  move-and-upload:
+    runs-on: ubuntu-latest
+
+    steps:
+    # リポジトリのコードをチェックアウト
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # `moreweapons` フォルダを作成し、必要なファイルを移動
+    - name: Create moreweapons folder and move files
+      run: |
+        mkdir -p moreweapons  # `moreweapons` フォルダと `src` フォルダを作成
+        mv src/* moreweapons  # `src` フォルダの中身を移動
+        mv pom.xml moreweapons/  # `pom.xml` を `moreweapons` フォルダに移動
+
+    # ビルドしたJARファイルをGitHub Releaseにアップロード（ビルドはしません）
+    - name: Upload JAR to GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: moreweapons/target/*.jar  # `moreweapons` 内のビルドされたJARファイルをアップロード
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}  # GitHub SecretsのTOKENを使用

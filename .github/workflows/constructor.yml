@@ -1,0 +1,41 @@
+name: Auto Fix Java Constructors
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'src/main/java/com/sakalti/moreweapons/items/*.java'
+    branches:
+      - Test
+
+jobs:
+  fix-constructors:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: 自動修正スクリプト
+        run: |
+          #!/bin/bash
+          set -e
+          find src/main/java/com/sakalti/moreweapons/items/ -type f -name "*.java" | while read file; do
+            # コンストラクタ引数修正
+            sed -i 's/public \([A-Za-z0-9_]*Item\)()/public \1(Item.Settings settings)/g' "$file"
+            # super呼び出し修正
+            sed -i 's/super(new Settings()/super(settings/g' "$file"
+          done
+
+      - name: Commit & Push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "fix: 自動でItemコンストラクタをSettings settings引数に修正" || exit 0
+          git push
