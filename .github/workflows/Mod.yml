@@ -1,0 +1,34 @@
+name: Build and Upload Mod
+
+on:
+  push:
+    branches:
+      - main  # mainブランチにpushされた時に実行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # リポジトリのコードをチェックアウト
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Java 17 (Temurin) をセットアップ
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'temurin'  # adoptopenjdkではなくtemurinに変更！
+
+      # Gradleでビルド
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      # ビルドが成功したらJARファイルをアップロード
+      - name: Upload JAR to GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/libs/*.jar  # JARファイルをアップロード
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}  # GitHub SecretsのTOKENを使用

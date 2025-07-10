@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " R ",
+    "IGI",
+    "  I"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:netherrite_ingot"
+    },
+    "G": {
+      "item": "minecraft:spider_eye"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "moreweapons:poison_burn"
+  }
+}

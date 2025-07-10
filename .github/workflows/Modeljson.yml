@@ -1,0 +1,37 @@
+name: Generate Item Models
+
+on:
+  push:
+    paths:
+      - 'src/main/resources/data/moreweapons/recipe/*.json'
+  workflow_dispatch:
+
+jobs:
+  generate-models:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate item models
+        run: |
+          mkdir -p src/main/resources/assets/moreweapons/models/item
+          for file in src/main/resources/data/moreweapons/recipe/*.json; do
+            name=$(basename "$file" .json)
+            path="src/main/resources/assets/moreweapons/models/item/${name}.json"
+            echo '{' > "$path"
+            echo '  "parent": "item/generated",' >> "$path"
+            echo '  "textures": {' >> "$path"
+            echo "    \"layer0\": \"moreweapons:item/${name}\"" >> "$path"
+            echo '  }' >> "$path"
+            echo '}' >> "$path"
+          done
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/main/resources/assets/moreweapons/models/item/
+          git diff --cached --quiet || git commit -m "Auto-generate item models from recipes"
+          git push

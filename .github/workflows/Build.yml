@@ -1,0 +1,57 @@
+name: Build Mod
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    tags:
+      - '*'  # タグpushも検知する（リリース用）
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew clean build --info --refresh-dependencies
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-jar
+          path: build/libs/*.jar
+
+      - name: Upload to CurseForge
+        env:
+          CF_API_KEY: ${{ secrets.CF_API_KEY }}
+          CF_PROJECT_ID: ${{ secrets.PROJECT_ID }}
+          CF_GAME_VERSION: ${{ secrets.GAME_VERSION }}
+        run: |
+          JAR_PATH=$(find build/libs -name "*.jar" | head -n 1)
+
+          if [ -z "$JAR_PATH" ]; then
+            echo "No JAR file found in build/libs"
+            exit 1
+          fi
+
+          echo "Uploading $JAR_PATH to CurseForge..."
+
+          curl -X POST "https://api.curseforge.com/v1/projects/${CF_PROJECT_ID}/upload-file" \
+            -H "x-api-key: ${CF_API_KEY}" \
+            -F "file=@${JAR_PATH}" \
+            -F "gameVersions=${CF_GAME_VERSION}" \
+            -F "releaseType=release" \
+            -F "displayName=Automated Upload - $(basename "$JAR_PATH")"
