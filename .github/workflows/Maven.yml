@@ -1,0 +1,43 @@
+name: Build and Upload Mod with moreweapons folder
+
+on:
+  push:
+    branches:
+      - main  # mainブランチにpushされた時に実行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # リポジトリのコードをチェックアウト
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # JDKのセットアップ
+    - name: Set up JDK 17
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    # `moreweapons` フォルダを作成し、必要なファイルを移動
+    - name: Create moreweapons folder and move files
+      run: |
+        mkdir -p moreweapons/src  # `moreweapons` フォルダと `src` フォルダを作成
+        mv src/* moreweapons/src/  # `src` フォルダの中身を移動
+        mv pom.xml moreweapons/  # `pom.xml` を `moreweapons` フォルダに移動
+
+    # `moreweapons` フォルダに移動してビルド
+    - name: Build with Maven from moreweapons folder
+      run: |
+        cd moreweapons  # `moreweapons` フォルダに移動
+        mvn clean install  # `moreweapons` 内の `pom.xml` を使ってビルド
+
+    # ビルドしたJARファイルをGitHub Releaseにアップロード
+    - name: Upload JAR to GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: moreweapons/target/*.jar  # `moreweapons` 内のビルドされたJARファイルをアップロード
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub SecretsのTOKENを使用

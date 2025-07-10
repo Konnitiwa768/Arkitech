@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "takumin",
+  "version": "1.0.0",
+  "name": "Takumin",
+  "description": "タクミン",
+  "authors": [
+    "Konnitiwa768"
+  ],
+  "contact": {
+    "homepage": "https://github.com/Konnitiwa768/Moreweapons"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.sakalti.takumin.TakuminMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.14.0",
+    "fabric": "*",
+    "minecraft": "1.19.2"
+  }
+}

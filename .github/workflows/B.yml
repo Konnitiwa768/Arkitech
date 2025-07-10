@@ -1,0 +1,33 @@
+name: Move generated/resources to src/main/resources
+
+on:
+  workflow_dispatch:
+
+jobs:
+  move-files:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Move files from generated/resources to src/main/resources
+        run: |
+          mkdir -p src/main/resources
+          if [ -d src/generated/resources ]; then
+            mv src/generated/resources/* src/main/resources/ || true
+            rmdir src/generated/resources || true
+            git add src/main/resources
+            git rm -r --ignore-unmatch generated/resources || true
+          fi
+
+      - name: Commit changes
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "Move files from generated/resources to src/main/resources" || echo "No changes to commit"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.8.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
