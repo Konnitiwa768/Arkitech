@@ -32,6 +32,7 @@ public class MWItems1 {
     public static void registerItems() {
         ItemRegisterInfo[] items = new ItemRegisterInfo[] {
             new ItemRegisterInfo("flower_blade", new FlowerBladeItem(new Item.Settings().group(COMBAT))),
+            new ItemRegisterInfo("wool_sword", new WoolSwordItem(new Item.Settings().group(COMBAT))),
             new ItemRegisterInfo("diorite_sword", new DioriteSwordItem(new Item.Settings().group(COMBAT))),
             new ItemRegisterInfo("andesite_sword", new AndesiteSwordItem(new Item.Settings().group(COMBAT))),
             new ItemRegisterInfo("granite_sword", new GraniteSwordItem(new Item.Settings().group(COMBAT))),
