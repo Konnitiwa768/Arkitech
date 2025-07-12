@@ -34,7 +34,7 @@ jobs:
       - name: Upload to GitHub Releases
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: v1.0.0
+          tag_name: v1.0
           name: バージョン1
           files: build/libs/*.jar
         env:
