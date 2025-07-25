@@ -11,7 +11,7 @@ import net.minecraft.util.registry.Registry;
 
 public class MWItems1 {
 
-    // 他のクラスからも使えるよう public に
+    // パブリックなアイテムグループ（クリエイティブタブ）
     public static final ItemGroup COMBAT = FabricItemGroupBuilder.create(
             new Identifier("moreweapons", "combat"))
             .icon(() -> new ItemStack(Items.DIAMOND_SWORD))
@@ -32,7 +32,7 @@ public class MWItems1 {
     public static void registerItems() {
         ItemRegisterInfo[] items = new ItemRegisterInfo[] {
             new ItemRegisterInfo("flower_blade", new FlowerBladeItem(new Item.Settings().fireproof().group(COMBAT))),
-            new ItemRegisterInfo("blacksteel_knife", new BlacksteelKnifeItem(new Item.Settings().fireproop().group(COMBAT))),
+            new ItemRegisterInfo("blacksteel_knife", new BlacksteelKnifeItem(new Item.Settings().fireproof().group(COMBAT))),
             new ItemRegisterInfo("red_saber", new RedSaberItem(new Item.Settings().fireproof().group(COMBAT))),
             new ItemRegisterInfo("red_strike", new RedStrikeItem(new Item.Settings().fireproof().group(COMBAT))),
             new ItemRegisterInfo("wool_sword", new WoolSwordItem(new Item.Settings().group(COMBAT))),
@@ -46,26 +46,23 @@ public class MWItems1 {
             new ItemRegisterInfo("poison_burn", new PoisonBurnItem(new Item.Settings().group(COMBAT))),
             new ItemRegisterInfo("lapis_trident", new LapisTridentItem(new Item.Settings().group(COMBAT))),
             new ItemRegisterInfo("cerulean_blade", new CeruleanBladeItem(new Item.Settings().fireproof().group(COMBAT))),
-            new ItemRegisterInfo("lunar_blade", new LunarBladeItem(new Item.Settings().fireproop().group(COMBAT))),
+            new ItemRegisterInfo("lunar_blade", new LunarBladeItem(new Item.Settings().fireproof().group(COMBAT))),
             new ItemRegisterInfo("flower_rapier", new FlowerRapierItem(new Item.Settings().group(COMBAT))),
-            // new ItemRegisterInfo("adventurer_greatsword", new AdventurerGreatswordItem()), // 引数なしに変更
-            // new ItemRegisterInfo("adventurer_greatsword", new AdventurerGreatswordItem()), // 引数なしに変更した場合はクラス修正必要
             new ItemRegisterInfo("precious_blade", new PreciousBladeItem()), // 引数なしコンストラクタ
             new ItemRegisterInfo("emperor_blade", new EmperorBladeItem(new Item.Settings().group(COMBAT))),
             new ItemRegisterInfo("legendary_greatsword", new LegendaryGreatSwordItem(new Item.Settings().group(COMBAT))),
             new ItemRegisterInfo("corrupted_blade", new CorruptedBladeItem(new Item.Settings().fireproof().group(COMBAT))),
-            // new ItemRegisterInfo("iron_bow", new IronBowItem(new Item.Settings().group(COMBAT))),
-            // new ItemRegisterInfo("matchlock", new MatchlockItem(new Item.Settings().group(COMBAT))),
             new ItemRegisterInfo("armor_destroyer", new ArmorDestroyerItem(new Item.Settings().group(COMBAT))),
-            // new ItemRegisterInfo("laser_blade", new LaserBladeItem(new Item.Settings().group(COMBAT))),
             new ItemRegisterInfo("under_blade", new UnderBladeItem(new Item.Settings().group(COMBAT))),
             new ItemRegisterInfo("coral_greatsword", new CoralGreatswordItem(new Item.Settings().group(COMBAT))),
             new ItemRegisterInfo("bent_diamond_blade", new BentDiamondBladeItem(new Item.Settings().group(COMBAT))),
             new ItemRegisterInfo("chorus_blade", new ChorusBladeItem(new Item.Settings().fireproof().group(COMBAT))),
             new ItemRegisterInfo("deepslate_sword", new DeepslateSwordItem(new Item.Settings().group(COMBAT))),
-            // new ItemRegisterInfo("normal_rifle", new NormalRifleItem(new Item.Settings().group(COMBAT))),
+            // 登録保留のアイテムたちはコメントアウトのまま
+            // new ItemRegisterInfo("iron_bow", new IronBowItem(new Item.Settings().group(COMBAT))),
+            // new ItemRegisterInfo("matchlock", new MatchlockItem(new Item.Settings().group(COMBAT))),
+            // new ItemRegisterInfo("laser_blade", new LaserBladeItem(new Item.Settings().group(COMBAT))),
             // new ItemRegisterInfo("shulker_great_sword", new ShulkerGreatSwordItem(new Item.Settings().group(COMBAT))),
-            // ToolMaterials.DIAMONDは標準ツール素材。攻撃力3、攻撃速度6.0Fなどのカスタム値を渡す例
             // new ItemRegisterInfo("blood_agate", new BloodAgateItem(ToolMaterials.DIAMOND, 3, 6.0F, new Item.Settings().group(COMBAT))),
             // new ItemRegisterInfo("diamond_quarterstaff", new DiamondQuarterStaffItem(new Item.Settings().group(COMBAT))),
         };
