@@ -12,8 +12,8 @@ import net.minecraft.world.World;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 
-public class ShulkerSwordItem extends SwordItem {
-    public ShulkerSwordItem(Settings settings) {
+public class ShulkerSword extends SwordItem {
+    public ShulkerSword(Settings settings) {
         super(new ToolMaterial() {
             @Override public int getDurability() { return 1328; }
             @Override public float getMiningSpeedMultiplier() { return 3.5F; }
