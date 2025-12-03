@@ -21,7 +21,7 @@ public class MWIngots1 {
 
     private static Item register(String name) {
         return Registry.register(
-                Registries.ITEM,
+                Registry.ITEM,
                 new Identifier("moreweapons", name),
                 new Item(new Item.Settings())
         );
