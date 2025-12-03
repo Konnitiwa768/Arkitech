@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DDD",
+    "DI",
+    " I "
+  ],
+  "key": {
+    "D": { "item": "minecraft:oak_log" },
+    "I": { "item": "minecraft:stick" },
+    "A": { "item": "minecraft:nether_star" }
+  },
+  "result": {
+    "item": "moreweapons:big_pickaxe"
+  }
+}
