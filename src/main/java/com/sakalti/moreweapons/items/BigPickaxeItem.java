@@ -17,7 +17,7 @@ public class BigPickaxeItem extends SwordItem {
         super(new ToolMaterial() {
             @Override public int getDurability() { return 236; }
             @Override public float getMiningSpeedMultiplier() { return 4.5F; }
-            @Override public float getAttackDamage() { return 9.5F; }
+            @Override public float getAttackDamage() { return 8.5F; }
             @Override public int getMiningLevel() { return 3; }
             @Override public int getEnchantability() { return 24; }
             @Override public Ingredient getRepairIngredient() {
