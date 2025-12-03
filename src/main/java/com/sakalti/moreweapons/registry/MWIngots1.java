@@ -1,4 +1,4 @@
-package com.sakalti.moreweapons.item;
+package com.sakalti.moreweapons.registry;
 
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
