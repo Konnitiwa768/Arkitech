@@ -1,9 +1,9 @@
 package com.sakalti.moreweapons.registry;
 
 import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+
 
 public class MWIngots1 {
 
