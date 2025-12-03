@@ -1,4 +1,4 @@
-package com.sakalti.moreweapons.item.custom;
+package com.sakalti.moreweapons.item;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
