@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CGG",
+    "SSS",
+    "SSS"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:red_dye"
+    },
+    "G": {
+      "item": "minecraft:nether_wart"
+    },
+    "S": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "moreweapons:genmiite_ingot",
+    "count": 5
+  }
+}
