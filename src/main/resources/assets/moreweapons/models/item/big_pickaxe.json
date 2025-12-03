@@ -1,0 +1,26 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "minecraft:item/wooden_pickaxe"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "scale": [1.5, 1.5, 1.5]
+    },
+    "thirdperson_lefthand": {
+      "scale": [1.5, 1.5, 1.5]
+    },
+    "firstperson_righthand": {
+      "scale": [1.5, 1.5, 1.5]
+    },
+    "firstperson_lefthand": {
+      "scale": [1.5, 1.5, 1.5]
+    },
+    "gui": {
+      "scale": [1.5, 1.5, 1.5]
+    },
+    "ground": {
+      "scale": [1.5, 1.5, 1.5]
+    }
+  }
+}
